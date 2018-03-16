@@ -56,7 +56,7 @@ if ($_GET["user"]==$db_user and $_GET["password"]==$db_passphrase )
 	$dir="/var/www/html/request-omb/Create_Acounts/";
   	    $cookie_path=generateRandomString(40);
 	 file_put_contents ($dir.$cookie_path.".cookie","ID=".$ID."; passphrase=".$passphrase.";");
-	 echo "<a href=\"https://proxy.omb.one:6565/request-omb/Create_Acounts/".$cookie_path.".cookie"."\"/>https://proxy.omb.one:6565/request-omb/Create_Acounts/".$cookie_path.".cookie"."</a>"; 
+	 echo "<a href=\"https://proxy.$domain_post_fix:6565/request-omb/Create_Acounts/".$cookie_path.".cookie"."\"/>https://proxy.$domain_post_fix:6565/request-omb/Create_Acounts/".$cookie_path.".cookie"."</a>"; 
 	 echo "</br>Send mail ".$_GET["email"];
 	 
     /*************************************************************
@@ -66,7 +66,7 @@ if ($_GET["user"]==$db_user and $_GET["password"]==$db_passphrase )
     
      $to      = $_GET["email"];
      $subject = 'Own-Mailbox: your identification cookie for the proxy service.';
-     $message = "Hi !\n you have requested an Identifiaction cookie for the Own-Mailbox tor proxy service.\n You can download it here: https://proxy.omb.one:6565/request-omb/Create_Acounts/".$cookie_path.".cookie".
+     $message = "Hi !\n you have requested an Identifiaction cookie for the Own-Mailbox tor proxy service.\n You can download it here: https://proxy.$domain_post_fix:6565/request-omb/Create_Acounts/".$cookie_path.".cookie".
      "\n In order to see how to use it please see this page:https://www.own-mailbox.com/public-wiki-axsde/index.php/Identification_cookie \n Thanks! \n Pierre";
      $headers = 'From: pierre.parent@pparent.fr' . "\r\n" .
      'Reply-To: pierre.parent@pparent.fr' . "\r\n" .
