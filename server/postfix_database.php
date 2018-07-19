@@ -19,7 +19,7 @@ function postfix_update_domain($domain,$torhidenservice)
     $db_selected = mysqli_select_db($link2,$data_base_postfix);
 
        $query=sprintf(" SELECT COUNT(ID) AS NB FROM ".mysqli_real_escape_string ($link2, strip_tags($table_postfix))." WHERE address= '".mysqli_real_escape_string ($link2, strip_tags($domain.$domain_post_fix.".tor"))."'");
-    $reponse= mysqli_query($link2,$query,);
+    $reponse= mysqli_query($link2,$query);
 
       if (!$reponse) {
 	    $message  = 'Invalid query: ' . mysqli_error($link2) . "\n";
