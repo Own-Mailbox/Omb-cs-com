@@ -1,5 +1,8 @@
 <?php 
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 
 include '../global_variables.php'; 
@@ -17,38 +20,41 @@ function generateRandomString($length = 10) {
 
 if ($_GET["user"]==$db_user and $_GET["password"]==$db_passphrase )
   {
+
   echo "Identifiaction réussie!</br>";
   
-  $link =  mysql_connect('localhost', $db_user, $db_passphrase);
+  $link =  mysqli_connect('localhost', $db_user, $db_passphrase);
+  
+
   if (!$link) {die("conection à la base de donnée impossible");}
   
-  $db_selected = mysql_select_db($db_name,$link);
-  
+  $db_selected = mysqli_select_db($link,$db_name);
+ 
 
   $passphrase=generateRandomString(40);
   
-   $query=sprintf(" INSERT  INTO Customers(passphrase) VALUES('".mysql_real_escape_string (strip_tags($passphrase))."')");
-   $reponse= mysql_query($query,$link);   
+   $query=sprintf(" INSERT  INTO Customers(passphrase) VALUES('".mysqli_real_escape_string ($link, strip_tags($passphrase))."')");
+   $reponse= mysqli_query($link,$query);   
       
     if (!$reponse) {
-	    $message  = 'Invalid query: ' . mysql_error() . "\n";
+	    $message  = 'Invalid query: ' . mysqli_error($link) . "\n";
 	    $message .= 'Whole query: ' . $query. "\n";
 	    echo $message;
 	    return;
 	  }
 	  
-   $query=sprintf(" SELECT ID FROM Customers WHERE passphrase='".mysql_real_escape_string (strip_tags($passphrase)))."'";
-   $reponse= mysql_query($query,$link);   
+   $query=sprintf(" SELECT ID FROM Customers WHERE passphrase='".mysqli_real_escape_string ($link, strip_tags($passphrase)))."'";
+   $reponse= mysqli_query($link, $query);   
       
    if (!$reponse) {
-	    $message  = 'Invalid query: ' . mysql_error() . "\n";
+	    $message  = 'Invalid query: ' . mysqli_error($link) . "\n";
 	    $message .= 'Whole query: ' . $query;
 	    die($message);
 	  }
 	  
  // On affiche chaque entrée une à une
 	
- if ($donnees = mysql_fetch_assoc($reponse))
+ if ($donnees = mysqli_fetch_assoc($reponse))
 	{
 	  $ID=$donnees['ID'];
 	}	
